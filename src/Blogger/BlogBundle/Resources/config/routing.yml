@@ -1,3 +1,19 @@
-blogger_blog_homepage:
+blogger_blog_homepage_old:
     path:     /hello/{name}
     defaults: { _controller: BloggerBlogBundle:Default:index }
+
+blogger_blog_phphomepage_old:
+    path:     /hello/php/{name}
+    defaults: { _controller: BloggerBlogBundle:Default:php }
+
+BloggerBlogBundle_homepage:
+    pattern:  /
+    defaults: { _controller: BloggerBlogBundle:Page:index }
+    requirements:
+        _method:  GET
+
+BloggerBlogBundle_about:
+    pattern:  /about
+    defaults: { _controller: BloggerBlogBundle:Page:about }
+    requirements:
+        _method:  GET
