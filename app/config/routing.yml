@@ -1,3 +1,7 @@
+blogger_debug:
+    resource: "@BloggerDebugBundle/Resources/config/routing.yml"
+    prefix:   /
+
 blogger_blog:
     resource: "@BloggerBlogBundle/Resources/config/routing.yml"
     prefix:   /
