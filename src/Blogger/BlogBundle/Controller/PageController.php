@@ -38,10 +38,26 @@ class PageController extends Controller
             if ($form->isValid()) {
 
                 \Blogger\DebugBundle\Tools\Debug::dump($request->request->all());
+
+                $message = \Swift_Message::newInstance()
+                        ->setSubject('Contact enquiry from symblog')
+                        ->setFrom('enquiries@symblog.me')
+                        ->setTo('seyferseed@mail.ru')
+                        ->setBody(
+                        $this->renderView('BloggerBlogBundle:Page:contactEmail.txt.twig', array(
+                            'enquiry' => $enquiry
+                                )
+                ));
+
+                $numSent = $this->get('mailer')->send($message);
+                $this->get('session')
+                        ->getFlashBag()
+                        ->add('blogger-notice', "Your {$numSent} contact enquiry was successfully sent. Thank you!");
+
                 // Perform some action, such as sending an email
                 // Redirect - This is important to prevent users re-posting
                 // the form if they refresh the page
-//                return $this->redirect($this->generateUrl('BloggerBlogBundle_contact'));
+                return $this->redirect($this->generateUrl('BloggerBlogBundle_contact'));
             }
         }
 
