@@ -10,9 +10,24 @@ use Doctrine\ORM\Mapping as ORM;
  * @author seyfer
  * @ORM\Entity
  * @ORM\Table(name="blog")
+ * @ORM\HasLifecycleCallbacks
  */
 class Blog
 {
+
+    public function __construct()
+    {
+        $this->setCreated(new \DateTime());
+        $this->setUpdated(new \DateTime());
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedValue()
+    {
+        $this->setUpdated(new \DateTime());
+    }
 
     /**
      * @ORM\Id
@@ -150,14 +165,14 @@ class Blog
         return $this;
     }
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
+
 }
