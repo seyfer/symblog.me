@@ -8,26 +8,12 @@ use Doctrine\ORM\Mapping as ORM;
  * Description of Blog
  *
  * @author seyfer
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Blogger\BlogBundle\Entity\Repository\BlogRepository")
  * @ORM\Table(name="blog")
  * @ORM\HasLifecycleCallbacks
  */
 class Blog
 {
-
-    public function __construct()
-    {
-        $this->setCreated(new \DateTime());
-        $this->setUpdated(new \DateTime());
-    }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function setUpdatedValue()
-    {
-        $this->setUpdated(new \DateTime());
-    }
 
     /**
      * @ORM\Id
@@ -60,7 +46,11 @@ class Blog
      * @ORM\Column(type="text")
      */
     protected $tags;
-    protected $comments = array();
+
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="blog")
+     */
+    protected $comments;
 
     /**
      * @ORM\Column(type="datetime")
@@ -72,9 +62,20 @@ class Blog
      */
     protected $updated;
 
-    public function addComment(Comment $comment)
+    public function __construct()
     {
-        $this->comments[] = $comment;
+        $this->comments = new ArrayCollection();
+
+        $this->setCreated(new \DateTime());
+        $this->setUpdated(new \DateTime());
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedValue()
+    {
+        $this->setUpdated(new \DateTime());
     }
 
     public function getTitle()
@@ -87,9 +88,13 @@ class Blog
         return $this->author;
     }
 
-    public function getBlog()
+    public function getBlog($length = null)
     {
-        return $this->blog;
+        if (false === is_null($length) && $length > 0) {
+            return substr($this->blog, 0, $length);
+        } else {
+            return $this->blog;
+        }
     }
 
     public function getImage()
@@ -175,4 +180,27 @@ class Blog
         return $this->id;
     }
 
+
+    /**
+     * Remove comments
+     *
+     * @param \Blogger\BlogBundle\Entity\Comment $comments
+     */
+    public function removeComment(\Blogger\BlogBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \Blogger\BlogBundle\Entity\Comment $comments
+     * @return Blog
+     */
+    public function addComment(\Blogger\BlogBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
 }
