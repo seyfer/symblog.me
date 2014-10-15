@@ -3,6 +3,7 @@
 namespace Blogger\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Description of Blog
@@ -14,6 +15,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Blog
 {
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 
     /**
      * @ORM\Id
@@ -180,7 +186,6 @@ class Blog
         return $this->id;
     }
 
-
     /**
      * Remove comments
      *
@@ -203,4 +208,5 @@ class Blog
 
         return $this;
     }
+
 }
