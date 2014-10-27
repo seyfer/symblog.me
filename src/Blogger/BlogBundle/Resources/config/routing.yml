@@ -11,6 +11,12 @@ BloggerBlogBundle_homepage:
     defaults: { _controller: BloggerBlogBundle:Page:index }
     requirements:
         _method:  GET
+        
+BloggerBlogBundle_sidebar:
+    pattern:  /
+    defaults: { _controller: BloggerBlogBundle:Page:sidebar }
+    requirements:
+        _method:  GET
 
 BloggerBlogBundle_about:
     pattern:  /about

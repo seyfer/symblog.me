@@ -12,6 +12,12 @@ use Doctrine\ORM\EntityRepository;
 class CommentRepository extends EntityRepository
 {
 
+    /**
+     * 
+     * @param type $blogId
+     * @param type $approved
+     * @return type
+     */
     public function getCommentsForBlog($blogId, $approved = true)
     {
         $qb = $this->createQueryBuilder('c')
@@ -23,6 +29,25 @@ class CommentRepository extends EntityRepository
         if (false === is_null($approved)) {
             $qb->andWhere('c.approved = :approved')
                     ->setParameter('approved', $approved);
+        }
+
+        return $qb->getQuery()
+                        ->getResult();
+    }
+
+    /**
+     * 
+     * @param type $limit
+     * @return type
+     */
+    public function getLatestComments($limit = 10)
+    {
+        $qb = $this->createQueryBuilder('c')
+                ->select('c')
+                ->addOrderBy('c.id', 'DESC');
+
+        if (false === is_null($limit)) {
+            $qb->setMaxResults($limit);
         }
 
         return $qb->getQuery()

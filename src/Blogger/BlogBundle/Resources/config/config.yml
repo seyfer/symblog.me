@@ -1,3 +1,4 @@
 parameters:
     # Blogger contact email address
     blogger_blog.emails.contact_email: seyferseed@mail.ru
+    blogger_blog.comments.latest_comment_limit: 10
