@@ -3,7 +3,8 @@
         <header>
             <p>
                 <span class="highlight">{{ comment.user }}</span> commented
-                <time datetime="{{ comment.created|date('c') }}">{{ comment.created|date('l, F j, Y') }}</time>
+                {#                <time datetime="{{ comment.created|date('c') }}">{{ comment.created|date('l, F j, Y') }}</time>#}
+                <time datetime="{{ comment.created|date('c') }}">{{ comment.created|created_ago }}</time>
             </p>
         </header>
         <p>{{ comment.comment }}</p>

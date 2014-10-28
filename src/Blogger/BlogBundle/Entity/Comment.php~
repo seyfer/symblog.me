@@ -3,6 +3,9 @@
 namespace Blogger\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Description of Comment
@@ -14,6 +17,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Comment
 {
+
+    public static function loadValidatorMetadata(ClassMetadata $metadata)
+    {
+        $metadata->addPropertyConstraint('user', new NotBlank(array(
+            'message' => 'You must enter your name'
+        )));
+        $metadata->addPropertyConstraint('comment', new NotBlank(array(
+            'message' => 'You must enter a comment'
+        )));
+    }
 
     /**
      * @ORM\Id
@@ -69,11 +82,10 @@ class Comment
         $this->setUpdated(new \DateTime());
     }
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -96,7 +108,7 @@ class Comment
     /**
      * Get user
      *
-     * @return string 
+     * @return string
      */
     public function getUser()
     {
@@ -119,7 +131,7 @@ class Comment
     /**
      * Get comment
      *
-     * @return string 
+     * @return string
      */
     public function getComment()
     {
@@ -142,7 +154,7 @@ class Comment
     /**
      * Get approved
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getApproved()
     {
@@ -165,7 +177,7 @@ class Comment
     /**
      * Get created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -188,7 +200,7 @@ class Comment
     /**
      * Get updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -211,10 +223,11 @@ class Comment
     /**
      * Get blog
      *
-     * @return \Blogger\BlogBundle\Entity\Blog 
+     * @return \Blogger\BlogBundle\Entity\Blog
      */
     public function getBlog()
     {
         return $this->blog;
     }
+
 }

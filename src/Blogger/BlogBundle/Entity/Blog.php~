@@ -3,6 +3,7 @@
 namespace Blogger\BlogBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Description of Blog
@@ -15,6 +16,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Blog
 {
 
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -26,6 +32,11 @@ class Blog
      * @ORM\Column(type="string")
      */
     protected $title;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $slug;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -180,7 +191,6 @@ class Blog
         return $this->id;
     }
 
-
     /**
      * Remove comments
      *
@@ -190,4 +200,18 @@ class Blog
     {
         $this->comments->removeElement($comments);
     }
+
+    /**
+     * Add comments
+     *
+     * @param \Blogger\BlogBundle\Entity\Comment $comments
+     * @return Blog
+     */
+    public function addComment(\Blogger\BlogBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
 }
