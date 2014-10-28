@@ -23,7 +23,7 @@ class EnquiryType extends AbstractType
 
     public function getName()
     {
-        return 'contact';
+        return 'blogger_blogbundle_enquirytype';
     }
 
 }

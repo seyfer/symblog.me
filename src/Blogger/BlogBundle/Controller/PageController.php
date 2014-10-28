@@ -67,7 +67,7 @@ class PageController extends Controller
 
             if ($form->isValid()) {
 
-                \Blogger\DebugBundle\Tools\Debug::dump($request->request->all());
+//                \Blogger\DebugBundle\Tools\Debug::dump($request->request->all());
 
                 $message = \Swift_Message::newInstance()
                         ->setSubject('Contact enquiry from symblog')

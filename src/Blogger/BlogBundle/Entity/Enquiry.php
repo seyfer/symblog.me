@@ -29,14 +29,14 @@ class Enquiry
         $metadata->addPropertyConstraint('subject', new NotBlank());
         $metadata->addPropertyConstraint('subject', new Length(array(
             'min'        => 2,
-            'max'        => 50,
+            'max'        => 150,
             'minMessage' => 'Data must be at least {{ limit }} characters length',
             'maxMessage' => 'Data cannot be longer than {{ limit }} characters length',
         )));
 
         $metadata->addPropertyConstraint('body', new Length(array(
             'min'        => 2,
-            'max'        => 50,
+            'max'        => 500,
             'minMessage' => 'Data must be at least {{ limit }} characters length',
             'maxMessage' => 'Data cannot be longer than {{ limit }} characters length',
         )));
